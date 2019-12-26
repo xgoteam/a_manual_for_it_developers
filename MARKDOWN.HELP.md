@@ -82,7 +82,6 @@ ___
 ```
 欢迎到访
 我是C++码农
-你可以在知乎、CSDN、简书搜索【mmfei】找到我
 ```
 该语法也可以实现代码高亮，见[代码高亮](#代码高亮)
 ### 文字高亮
@@ -130,18 +129,18 @@ alt和title即对应HTML中的alt和title属性（都可省略）：
 
 URL即图片的url地址，如果引用本仓库中的图片，直接使用**相对路径**就可了，如果引用其他github仓库中的图片要注意格式，即：`仓库地址/raw/分支名/图片路径`，如：
 ```
-https://github.com/guodongxiaren/ImageCache/raw/master/Logo/foryou.gif
+http://www.baidu.com/img/bdlogo.gif
 ```
 
 |#|语法|效果|
 |---|---|----
 |1|`![baidu](http://www.baidu.com/img/bdlogo.gif "testlogo")`|![baidu](http://www.baidu.com/img/bdlogo.gif "testlogo")
-|2|`![][code-past]`|![][code-past]
+|2|`![][xgo-logo]`|![][xgo-logo]
 
 注意例2的写法使用了**URL标识符**的形式，在[链接](#链接)一节有介绍。
->在文末有code-past的定义：
+>在文末有xgo-logo的定义：
 ```
-[code-past]:https://img-blog.csdnimg.cn/201908060004034.png
+[xgo-logo]:./static/images/xgo.icon.jpeg
 ```
 
 链接
@@ -150,8 +149,8 @@ https://github.com/guodongxiaren/ImageCache/raw/master/Logo/foryou.gif
 
 |#|语法|效果|
 |---|----|-----|
-|1|`[我的博客](http://blog.csdn.net/guodongxiaren "悬停显示")`|[我的博客](http://blog.csdn.net/guodongxiaren "悬停显示")|
-|2|`[我的知乎][zhihu] `|[我的知乎][zhihu] |
+|1|`[我的博客](http://www.xgoteam.com "悬停显示")`|[我的博客](http://www.xgoteam.com "悬停显示")|
+|2|`[test][test] `|[test][test] |
 
 语法2由两部分组成：
 - 第一部分使用两个中括号，[ ]里的标识符（本例中zhihu），可以是数字，字母等的组合，标识符上下对应就行了（**姑且称之为URL标识符**）
@@ -173,9 +172,7 @@ https://github.com/guodongxiaren/ImageCache/raw/master/Logo/foryou.gif
 
 |#|语法|效果|
 |---|----|:---:|
-|1|`[![weibo-logo]](http://weibo.com/linpiaochen)`|[![weibo-logo]](http://weibo.com/linpiaochen)|
 |2|`[![](/img/zhihu.png "我的知乎，欢迎关注")][zhihu]`|[![](/img/zhihu.png "我的知乎，欢迎关注")][zhihu]|
-|3|`[![csdn-logo]][csdn]`|[![csdn-logo]][csdn]|
 
 因为图片本身和链接本身都支持URL标识符的形式，所以图片链接也可以很简洁（见例3）。  
 注意，此时鼠标悬停时显示的文字是图片的title，而非链接本身的title了。
@@ -388,10 +385,7 @@ GFM中可以显示的展示diff效果。使用绿色表示新增，红色表示�
 ```
 
 --------------------------------
-[csdn]:http://blog.csdn.net/guodongxiaren "我的博客"
-[zhihu]:https://www.zhihu.com/people/jellywong "我的知乎，欢迎关注"
-[weibo]:http://weibo.com/linpiaochen
+[test]:https://www.xgoteam.com "测试"
 [baidu-logo]:http://www.baidu.com/img/bdlogo.gif "testlogo"
-[weibo-logo]:/img/weibo.png "点击图片进入我的微博"
 [csdn-logo]:/img/csdn.png "我的CSDN博客"
-[code-past]:https://img-blog.csdnimg.cn/201908060004034.png
+[xgo-logo]:./static/images/xgo.icon.jpeg "xgo.logo"
