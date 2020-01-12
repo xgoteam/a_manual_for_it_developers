@@ -23,8 +23,8 @@ pretty_urls:
 
 # Directory
 # source_dir: source
-source_dir: ../docs
-public_dir: public
+source_dir: ./docs
+public_dir: ./blog/public
 tag_dir: tags
 archive_dir: archives
 category_dir: categories
