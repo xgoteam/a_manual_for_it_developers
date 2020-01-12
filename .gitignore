@@ -5,3 +5,14 @@ blog/*.log
 blog/node_modules/
 blog/public/
 blog/.deploy*/
+blog/.DS_Store
+blog/package.json
+blog/package-lock.json
+blog/_admin-config.yml
+Thumbs.db
+db.json
+*.log
+node_modules/
+public/
+.deploy*/
+package-lock.json
