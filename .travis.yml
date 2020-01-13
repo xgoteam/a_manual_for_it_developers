@@ -7,8 +7,9 @@ branches:
   only:
     - master # build master branch only
 before_install:
-- git config --global user.name "YOUR NAME"
-- git config --global user.email "YOUR EMAIL"
+- cd blog;
+- git config --global user.name "mmfei"
+- git config --global user.email "wlfkongl@163.com"
 - sed -i'' "s~https://github.com/xgoteam/manuals_for_it_developers.git~https://${ACCESS_TOKEN}@github.com/xgoteam/manuals_for_it_developers.git~" _config.yml
 
 install:
