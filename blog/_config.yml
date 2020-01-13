@@ -6,7 +6,7 @@
 title: Manuals For Developers
 subtitle: ''
 description: ''
-keywords:
+keywords: 技术博客
 author: xGo Team
 language: en
 timezone: ''
@@ -117,3 +117,16 @@ mermaid: ## mermaid url https://github.com/knsv/mermaid
   version: "8.4" # default v7.1.2
   options:  # find more api options from https://github.com/knsv/mermaid/blob/master/src/mermaidAPI.js
     #startOnload: true  // default true
+
+# # hexo-auto-link-chekcer
+autoLinkChecker:
+  # enable: false
+  rarelyChangePostsPath: 404/
+  cachePath: cache/hexo-auto-link-checker.json
+  exclusionURL:
+    - hoge-url/
+    - articles-toc
+# https://github.com/viko16/hexo-permalink-pinyin
+permalink_pinyin:
+  enable: true
+  separator: '-' # default: '-'
