@@ -1,0 +1,285 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title> | Manuals For Developers</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.4.0/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Manuals For Developers</h1><a id="logo" href="/.">Manuals For Developers</a><p class="description"></p></div><div id="nav-menu"><a href="/."><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title"></h1><div class="post-content"><h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><ul>
+<li><p><a href="#需求">需求</a></p>
+</li>
+<li><p><a href="#选型">选型</a></p>
+</li>
+<li><p>解决方案</p>
+<ul>
+<li>部署方案</li>
+<li>上报方案</li>
+</ul>
+</li>
+<li><p><a href="#协议">协议</a></p>
+</li>
+</ul>
+<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><ol>
+<li>可以自定义指标</li>
+<li>可以自定义上报数据</li>
+<li>对应用的性能影响尽可能小</li>
+<li>非阻塞上报</li>
+<li>易于使用，对用户友好</li>
+<li>包含前后端解决方案（ui、server）</li>
+<li>可以接入告警（邮件、短信、钉钉）</li>
+<li>上报端接入成本小</li>
+<li>可平行扩容</li>
+</ol>
+<h1 id="选型"><a href="#选型" class="headerlink" title="选型"></a>选型</h1><ul>
+<li><p><a href="https://www.elastic.co/guide/en/kibana/7.1/apm-settings-kb.html" target="_blank" rel="noopener">ELK APM</a></p>
+</li>
+<li><p><a href="链路追踪方案">Jaeger</a></p>
+</li>
+<li><p><a href="链路追踪方案">Skywalking</a></p>
+</li>
+</ul>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><h3 id="部署方案"><a href="#部署方案" class="headerlink" title="部署方案"></a>部署方案</h3><h3 id="上报方案"><a href="#上报方案" class="headerlink" title="上报方案"></a>上报方案</h3><pre class="mermaid">sequenceDiagram
+    participant app_server as 应用服务器
+    participant m as 内存
+    participant rsyslog_c as rsyslog客户端
+    participant apm_c as apm客户端
+    participant apm_s as apm服务端
+
+    app_server->>app_server:发生事件
+    app_server->>app_server:通过syslog api以json格式写日志
+    app_server->>m:暂存至内存
+    rsyslog_c->>m:从内存采集日志
+    rsyslog_c->>apm_c:以syslog协议下发日志
+    apm_c->>apm_c:解析日志，转换为apm协议
+    apm_c->>apm_s:上报日志</pre>
+
+
+<h1 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h1><h3 id="外部服务监控"><a href="#外部服务监控" class="headerlink" title="外部服务监控"></a>外部服务监控</h3><p><a href="http://gitlab.hiii-life.com/hiii-big-data/event-tracking.big-data.xgo.com/blob/master/docs/apm_api.html" target="_blank" rel="noopener">上报服务</a></p>
+<ul>
+<li>上报参数</li>
+</ul>
+<blockquote>
+<blockquote>
+<p>公共参数</p>
+</blockquote>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>请求方式</th>
+<th>参数名称</th>
+<th>类型</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>HEAD</td>
+<td>X-HEAD-APP-VERSION</td>
+<td>string</td>
+<td>app版本，<code>1.0.0</code></td>
+</tr>
+<tr>
+<td>HEAD</td>
+<td>X-HEAD-APP-ID</td>
+<td>string</td>
+<td>appid 自定义区分客户端的id 乘客：<code>1001</code>， 司机：<code>1002</code></td>
+</tr>
+<tr>
+<td>HEAD</td>
+<td>X-HEAD-APP-CHANNEL</td>
+<td>string</td>
+<td>下载app的渠道，官方：<code>official</code>，其他渠道后续自行约定</td>
+</tr>
+<tr>
+<td>HEAD</td>
+<td>X-HEAD-PHONE-MODEL</td>
+<td>string</td>
+<td>设备系统类型: <code>Apple,iPhone 7 Plus</code></td>
+</tr>
+<tr>
+<td>HEAD</td>
+<td>X-HEAD-PLATFORM</td>
+<td>string</td>
+<td>设备平台: <code>iOS</code>,<code>Android</code>,<code>wap</code>,<code>web</code>,<code>pc</code></td>
+</tr>
+<tr>
+<td>HEAD</td>
+<td>X-HEAD-OS-VERSION</td>
+<td>string</td>
+<td>设备系统版本: <code>8.0.0</code></td>
+</tr>
+<tr>
+<td>HEAD</td>
+<td>X-HEAD-DEVICE-ID</td>
+<td>string</td>
+<td>设备唯一标识 <code>device uuid</code></td>
+</tr>
+<tr>
+<td>HEAD</td>
+<td>X-HEAD-IMEI</td>
+<td>string</td>
+<td>设备唯一标识 <code>imei</code></td>
+</tr>
+<tr>
+<td>HEAD</td>
+<td>X-HEAD-DEVICE-NETWORK</td>
+<td>string</td>
+<td>设备网络类型，流量：<code>2G</code>,<code>3G</code>,<code>4G</code>; wifi: <code>wifi</code></td>
+</tr>
+<tr>
+<td>HEAD</td>
+<td>X-HEAD-LOCATION-LNG</td>
+<td>string</td>
+<td>用户当前坐标的经度 如：<code>23.12312312321</code></td>
+</tr>
+<tr>
+<td>HEAD</td>
+<td>X-HEAD-LOCATION-LAT</td>
+<td>string</td>
+<td>用户当前坐标的纬度 如：<code>113.11232321</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<blockquote>
+<p>接口调用监控上报</p>
+</blockquote>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>请求方式</th>
+<th>参数名称</th>
+<th>类型</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>POST</td>
+<td>source</td>
+<td>string</td>
+<td>来源：<code>页面url</code> 或 <code>app view link</code></td>
+</tr>
+<tr>
+<td>POST</td>
+<td>reqid</td>
+<td>string</td>
+<td>接口的链路id</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>connect_duration</td>
+<td>int</td>
+<td>连接时长（毫秒）</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>wait_duration</td>
+<td>int</td>
+<td>等待时长（毫秒）</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>url</td>
+<td>string</td>
+<td>接口url：api.get99.com/xxxx/xxx 等</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>code</td>
+<td>string</td>
+<td>状态码：10 +  接口http状态码（3位） + 接口错误码（9位）</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>ext</td>
+<td>string</td>
+<td>附带信息</td>
+</tr>
+</tbody></table>
+<blockquote>
+<blockquote>
+<p>资源访问监控上报</p>
+</blockquote>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>请求方式</th>
+<th>参数名称</th>
+<th>类型</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>POST</td>
+<td>source</td>
+<td>string</td>
+<td>来源：<code>页面url</code> 或 <code>app view link</code></td>
+</tr>
+<tr>
+<td>POST</td>
+<td>connect_duration</td>
+<td>int</td>
+<td>连接时长（毫秒）</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>wait_duration</td>
+<td>int</td>
+<td>等待时长（毫秒）</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>url</td>
+<td>string</td>
+<td>接口url：api.get99.com/xxxx/xxx 等</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>code</td>
+<td>string</td>
+<td>状态码：11 +  接口http状态码（3位）+ 9个0</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>ext</td>
+<td>string</td>
+<td>附带信息</td>
+</tr>
+</tbody></table>
+<blockquote>
+<blockquote>
+<p>本地监控上报</p>
+</blockquote>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>请求方式</th>
+<th>参数名称</th>
+<th>类型</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>POST</td>
+<td>source</td>
+<td>string</td>
+<td>来源：<code>页面url</code> 或 <code>app view link</code></td>
+</tr>
+<tr>
+<td>POST</td>
+<td>code</td>
+<td>string</td>
+<td>状态码：20 +  3个0 + 自定义错误码（9位）</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>ext</td>
+<td>string</td>
+<td>附带信息</td>
+</tr>
+</tbody></table>
+<h3 id="内部服务监控"><a href="#内部服务监控" class="headerlink" title="内部服务监控"></a>内部服务监控</h3><p>[TODO]</p>
+<ul>
+<li><input disabled="" type="checkbox"> 客户端埋点方案</li>
+<li><input disabled="" type="checkbox"> syslog中转方案</li>
+<li><input disabled="" type="checkbox"> apm上报方案</li>
+</ul>
+</div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://manuals.xgoteam.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Links</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">Manuals For Developers.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@8.4/dist/mermaid.min.js?v=0.0.0"></script><script>if (window.mermaid) {
+  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
+  mermaid.initialize(options);
+}</script></div></body></html>
