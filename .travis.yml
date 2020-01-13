@@ -15,6 +15,7 @@ install:
 - npm install hexo-cli -g
 - npm install
 
+before_script: cd blog
 script:
 - npm run deploy
 script:
