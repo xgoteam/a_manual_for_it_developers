@@ -6,6 +6,17 @@ cache: npm
 branches:
   only:
     - master # build master branch only
+before_install:
+- git config --global user.name "YOUR NAME"
+- git config --global user.email "YOUR EMAIL"
+- sed -i'' "s~https://github.com/xgoteam/manuals_for_it_developers.git~https://${ACCESS_TOKEN}@github.com/xgoteam/manuals_for_it_developers.git~" _config.yml
+
+install:
+- npm install hexo-cli -g
+- npm install
+
+script:
+- npm run deploy
 script:
   - hexo generate # generate static files
 deploy:
