@@ -14,6 +14,10 @@ before_install:
 install:
 - npm install hexo-cli -g
 - npm install
+- npm install hexo-filter-mermaid-diagrams --save
+- npm install hexo-renderer-sass --save
+- npm install https://github.com/CodeFalling/hexo-asset-image --save
+- npm install hexo-hrefmd --save
 
 before_script: cd blog
 script:
