@@ -22,9 +22,9 @@ install:
 
 before_script: cd blog
 script:
-- npm run deploy
-script:
+  - hexo clean
   - hexo generate # generate static files
+  - npm run deploy
 deploy:
   provider: pages
   skip-cleanup: true
