@@ -1,5 +1,3 @@
-README
-===========================
 该文件用来测试和展示书写README的各种markdown语法。GitHub的markdown语法在标准的markdown语法基础上做了扩充，称之为`GitHub Flavored Markdown`。简称`GFM`，GFM在GitHub上有广泛应用，除了README文件外，issues和wiki均支持markdown语法。
 
 ****
@@ -389,3 +387,4 @@ GFM中可以显示的展示diff效果。使用绿色表示新增，红色表示�
 [baidu-logo]:http://www.baidu.com/img/bdlogo.gif "testlogo"
 [csdn-logo]:/img/csdn.png "我的CSDN博客"
 [xgo-logo]:./static/images/xgo.icon.jpeg "xgo.logo"
+[横线]: ./img.csdn.png "test"
