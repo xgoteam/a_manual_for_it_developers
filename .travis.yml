@@ -20,7 +20,7 @@ install:
 - npm install https://github.com/CodeFalling/hexo-asset-image --save
 - npm install hexo-hrefmd --save
 
-before_script: cd blog
+# before_script: cd blog
 script:
   - hexo clean
   - hexo generate # generate static files
